@@ -37,34 +37,46 @@ export default function BoardWriteUI() {
 
   const onChangeWriter = (event) => {
     setWriter(event.target.value);
+    if(event.target.value !== ""){
+      setWriterError("")
+    }
   };
 
   const onChangePassword = (event) => {
     setPassword(event.target.value);
+    if(event.target.value !== ""){
+      setPasswordError("")
+    }
   };
 
   const onChangeTitle = (event) => {
     setTitle(event.target.value);
+    if(event.target.value !== ""){
+      setTitleError("")
+    }
   };
 
   const onChangeContents = (event) => {
     setContents(event.target.value);
+    if(event.target.value !== ""){
+      setContentsError("")
+    }
   };
 
-  const onClickSubmit = async () => {
-    if (writer === "") {
+  const onClickSubmit = () => {
+    if (!writer) {
       setWriterError("작성자를 입력해주세요.");
     }
-    if (password === "") {
+    if (!password) {
       setPasswordError("비밀번호를 입력해주세요.");
     }
-    if (title === "") {
+    if (!title) {
       setTitleError("제목을 입력해주세요.");
     }
-    if (contents === "") {
+    if (!contents) {
       setContentsError("내용을 입력해주세요.");
     }
-    if (writer !== "" && password !== "" && title !== "" && contents !== "") {
+    if (writer && password && title && contents) {
         alert("게시글이 등록되었습니다.");
     }
   };

@@ -3,8 +3,8 @@ import styled from "@emotion/styled"
 import { Fragment } from 'react'
 
 const FETCH_BOARDS = gql`
-    query fetchBoards{
-        fetchBoards{
+    query fetchBoards(){
+        fetchBoards(){
             number
             writer
             title

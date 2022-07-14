@@ -28,13 +28,13 @@ export default function BoardWrite(props){
     }
 
     const onClickUpdate = async () => {
+        const myVariables = { number: Number(router.query.number) }
+        if(writer) myVariables.writer = writer
+        if(title) myVariables.title = title
+        if(contents) myVariables.contents = contents
+
         const result = await updateBoard({
-            variables: {
-                number: Number(router.query.number),
-                writer: writer,
-                title: title,
-                contents: contents
-            }
+            variables: myVariables
         })
         router.push(`/09-01-boards/${result.data.updateBoard.number}`)
         // router.push(`/09-01-boards/${router.query.number}`) => 이것도 가능!!
@@ -70,6 +70,7 @@ export default function BoardWrite(props){
             onChangeContents={onChangeContents}
             mycolor={mycolor}
             isEdit={props.isEdit}
+            data={props.data}
         />
     )
 }

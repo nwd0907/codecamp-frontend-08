@@ -1,5 +1,6 @@
 import { gql, useQuery } from "@apollo/client"
 import { useRouter } from "next/router"
+import { IQuery, IQueryFetchBoardArgs } from "../../../../src/commons/types/generated/types"
 import BoardWrite from "../../../../src/components/units/board/10-write/BoardWrite.container"
 
 const FETCH_BOARD = gql`
@@ -16,7 +17,7 @@ const FETCH_BOARD = gql`
 export default function GraphqlMutationPage(){
     const router = useRouter()
 
-    const { data } = useQuery(FETCH_BOARD, {
+    const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(FETCH_BOARD, {
         variables: { number: Number(router.query.number) }
     })
 

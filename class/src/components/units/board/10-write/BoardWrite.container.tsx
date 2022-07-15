@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/client'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useState } from 'react'
+import { IMutation, IMutationCreateBoardArgs, IMutationUpdateBoardArgs } from '../../../../commons/types/generated/types'
 import BoardWriteUI from './BoardWrite.presenter'
 import { CREATE_BOARD, UPDATE_BOARD } from './BoardWrite.queries'
 import { IBoardWriteProps, IMyVariables } from './BoardWrite.types'
@@ -12,8 +13,8 @@ export default function BoardWrite(props: IBoardWriteProps){
     const [writer, setWriter] = useState("") // a
     const [title, setTitle] = useState("") // a
     const [contents, setContents] = useState("") // a
-    const [createBoard] = useMutation(CREATE_BOARD)
-    const [updateBoard] = useMutation(UPDATE_BOARD)
+    const [createBoard] = useMutation<Pick<IMutation, "createBoard">, IMutationCreateBoardArgs>(CREATE_BOARD)
+    const [updateBoard] = useMutation<Pick<IMutation, "updateBoard">, IMutationUpdateBoardArgs>(UPDATE_BOARD)
 
     const onClickCreate = async () => {
         const result = await createBoard({
@@ -24,8 +25,8 @@ export default function BoardWrite(props: IBoardWriteProps){
             }
         })
         console.log(result)
-        console.log(result.data.createBoard.message)
-        router.push(`/10-01-typescript-boards/${result.data.createBoard.number}`)
+        console.log(result.data?.createBoard?.message)
+        router.push(`/10-01-typescript-boards/${result.data?.createBoard?.number}`)
     }
 
     const onClickUpdate = async () => {
@@ -37,7 +38,7 @@ export default function BoardWrite(props: IBoardWriteProps){
         const result = await updateBoard({
             variables: myVariables
         })
-        router.push(`/10-01-typescript-boards/${result.data.updateBoard.number}`)
+        router.push(`/10-01-typescript-boards/${result.data?.updateBoard?.number}`)
         // router.push(`/10-01-typescript-boards/${router.query.number}`) => 이것도 가능!!
     }
 

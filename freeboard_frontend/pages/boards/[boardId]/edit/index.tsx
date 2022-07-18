@@ -9,6 +9,7 @@ const FETCH_BOARD = gql`
       writer
       title
       contents
+      youtubeUrl
     }
   }
 `;
@@ -19,7 +20,7 @@ export default function BoardsEditPage() {
   const { data } = useQuery<
     Pick<IQuery, "fetchBoard">,
     IQueryFetchBoardArgs
-  >(FETCH_BOARD, { variables: { boardId: router.query.boardId }});
+  >(FETCH_BOARD, { variables: { boardId: String(router.query.boardId) }});
 
   return <BoardWrite isEdit={true} data={data} />;
 }

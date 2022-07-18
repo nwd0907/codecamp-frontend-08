@@ -14,6 +14,7 @@ export default function BoardWrite(props: IBoardWriteProps){
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
+  const [youtubeUrl, setYoutubeUrl] = useState("");
 
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -81,6 +82,10 @@ export default function BoardWrite(props: IBoardWriteProps){
     }
   };
 
+  const onChangeYoutubeUrl = (event: ChangeEvent<HTMLInputElement>) => {
+    setYoutubeUrl(event.target.value);
+  };
+
   const onClickSubmit = async () => {
     if (!writer) {
       setWriterError("작성자를 입력해주세요.");
@@ -99,23 +104,24 @@ export default function BoardWrite(props: IBoardWriteProps){
         const result = await createBoard({
           variables: {
             createBoardInput: {
-              writer: writer,
-              password: password,
-              title: title,
-              contents: contents
+              writer,
+              password,
+              title,
+              contents,
+              youtubeUrl,
             }
           }
         })
         console.log(result.data?.createBoard._id)
         router.push(`/boards/${result.data?.createBoard._id}`)
       } catch(error) {
-        alert(error.message)
+        if(error instanceof Error) alert(error.message)
       }
     }
   };
 
   const onClickUpdate = async () => {
-    if (!title && !contents) {
+    if (!title && !contents && !youtubeUrl) {
       alert("수정한 내용이 없습니다.");
       return;
     }
@@ -128,8 +134,11 @@ export default function BoardWrite(props: IBoardWriteProps){
     const updateBoardInput: IUpdateBoardInput = {};
     if (title) updateBoardInput.title = title;
     if (contents) updateBoardInput.contents = contents;
+    if (youtubeUrl) updateBoardInput.youtubeUrl = youtubeUrl;
 
+    
     try {
+      if(typeof router.query.boardId !== "string") return
       const result = await updateBoard({
         variables: {
           boardId: router.query.boardId,
@@ -139,7 +148,7 @@ export default function BoardWrite(props: IBoardWriteProps){
       })
       router.push(`/boards/${result.data?.updateBoard._id}`)
     } catch(error) {
-      alert(error.message)
+      if(error instanceof Error) alert(error.message)
     }
   };
 
@@ -154,6 +163,7 @@ export default function BoardWrite(props: IBoardWriteProps){
         onChangePassword={onChangePassword}
         onChangeTitle={onChangeTitle}
         onChangeContents={onChangeContents}
+        onChangeYoutubeUrl={onChangeYoutubeUrl}
         onClickSubmit={onClickSubmit}
         onClickUpdate={onClickUpdate}
         isEdit={props.isEdit}

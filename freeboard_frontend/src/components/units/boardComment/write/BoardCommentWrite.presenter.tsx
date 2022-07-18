@@ -20,6 +20,7 @@ export default function BoardCommentWriteUI(props: IBoardCommentWriteUIProps) {
           onChange={props.onChangePassword}
           value={props.password}
         />
+        <S.Star onChange={props.setStar} />
       </S.InputWrapper>
       <S.ContentsWrapper>
         <S.Contents

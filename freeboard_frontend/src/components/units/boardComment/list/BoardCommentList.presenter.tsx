@@ -3,10 +3,19 @@ import * as S from './BoardCommentList.styles'
 import { IBoardCommentListUIProps } from "./BoardCommentList.types";
 
 export default function BoardCommentListUI(props: IBoardCommentListUIProps) {
+
+  const onClickComment = (event) => {
+    alert(event.currentTarget.id + "입니다~")
+  }
+
+  const aaa = () => {
+    alert("asdklaskldas")
+  }
+
   return (
       <div>
         {props.data?.fetchBoardComments.map((el) => (
-          <S.ItemWrapper>
+          <S.ItemWrapper id={el.writer} onClick={onClickComment}>
             <S.FlexWrapper>
               <S.Avatar src="/images/avatar.png" />
               <S.MainWrapper>

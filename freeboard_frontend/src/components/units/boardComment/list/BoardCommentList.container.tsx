@@ -15,9 +15,11 @@ export default function BoardCommentList() {
   const { data } = useQuery<
     Pick<IQuery, "fetchBoardComments">,
     IQueryFetchBoardCommentsArgs
-  >(FETCH_BOARD_COMMENTS, { variables: { boardId: router.query.boardId }});
+  >(FETCH_BOARD_COMMENTS, { variables: { boardId: String(router.query.boardId) }});
 
   const onClickDelete = async (event: MouseEvent<HTMLImageElement>) => {
+    if(!(event.target instanceof HTMLImageElement)) return
+
     const myPassword = prompt("비밀번호를 입력하세요.")
     try {
       await deleteBoardComment({
@@ -33,7 +35,7 @@ export default function BoardCommentList() {
         ],
       });
     } catch (error) {
-      alert(error.message)
+      if(error instanceof Error) alert(error.message)
     }
   };
 

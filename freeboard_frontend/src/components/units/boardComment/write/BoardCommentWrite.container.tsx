@@ -30,6 +30,8 @@ export default function BoardCommentWrite() {
   };
 
   const onClickWrite = async () => {
+    if(typeof router.query.boardId !== "string") return
+
     try {
       await createBoardComment({
         variables: {
@@ -49,8 +51,12 @@ export default function BoardCommentWrite() {
         ],
       });
     } catch (error) {
-      alert(error.message);
+      if(error instanceof Error) alert(error.message);
     }
+
+    setWriter("")
+    setPassword("")
+    setContents("")
   };
 
   return (
@@ -59,6 +65,8 @@ export default function BoardCommentWrite() {
       onChangePassword={onChangePassword}
       onChangeContents={onChangeContents}
       onClickWrite={onClickWrite}
+      writer={writer}
+      password={password}
       contents={contents}
     />
   );

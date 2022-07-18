@@ -6,6 +6,7 @@ import { FETCH_BOARD } from './BoardDetail.queries'
 
 export default function BoardDetail(){
     const router = useRouter()
+
     const { data } = useQuery<
       Pick<IQuery, "fetchBoard">,
       IQueryFetchBoardArgs

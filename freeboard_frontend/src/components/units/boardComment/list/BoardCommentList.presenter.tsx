@@ -15,7 +15,7 @@ export default function BoardCommentListUI(props: IBoardCommentListUIProps) {
   return (
       <div>
         {props.data?.fetchBoardComments.map((el) => (
-          <S.ItemWrapper id={el.writer} onClick={onClickComment}>
+          <S.ItemWrapper id={el.writer || ""} onClick={onClickComment}>
             <S.FlexWrapper>
               <S.Avatar src="/images/avatar.png" />
               <S.MainWrapper>

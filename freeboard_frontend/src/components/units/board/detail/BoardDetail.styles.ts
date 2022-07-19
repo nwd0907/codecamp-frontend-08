@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { LikeOutlined, DislikeOutlined } from '@ant-design/icons'
-import ReactPlayer from 'react-player'
+import { LikeOutlined, DislikeOutlined } from "@ant-design/icons";
+import ReactPlayer from "react-player";
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -84,7 +84,6 @@ export const Button = styled.button`
   }
 `;
 
-
 export const IconWrapper = styled.div`
   text-align: center;
 `;
@@ -124,3 +123,4 @@ export const DislikeCount = styled.div`
   color: #828282;
 `;
 
+export const LinkIcon = styled.img``;

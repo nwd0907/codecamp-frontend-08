@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
+import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import {
@@ -31,8 +32,7 @@ export default function BoardCommentList() {
     variables: { boardId: String(router.query.boardId) },
   });
 
-  const onClickDelete = async (event: MouseEvent<HTMLElement>) => {
-    if (!(event.target instanceof HTMLElement)) return;
+  const onClickDelete = async () => {
     try {
       await deleteBoardComment({
         variables: {
@@ -48,7 +48,7 @@ export default function BoardCommentList() {
       });
       setIsOpenDeleteModal(false);
     } catch (error) {
-      if (error instanceof Error) alert(error.message);
+      if (error instanceof Error) Modal.error({ content: error.message });
     }
   };
 

@@ -33,9 +33,10 @@ export default function StaticRoutedPage() {
     Pick<IQuery, "fetchBoardsCount">,
     IQueryFetchBoardsCountArgs
   >(FETCH_BOARDS_COUNT);
+
   const lastPage = dataBoardsCount
     ? Math.ceil(dataBoardsCount?.fetchBoardsCount / 10)
-    : 1;
+    : 0;
 
   return (
     <>
